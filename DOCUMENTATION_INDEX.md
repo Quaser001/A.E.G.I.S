@@ -1,6 +1,6 @@
-# KAVACH Drone Simulator - Documentation Index
+# A.E.G.I.S Drone Simulator - Documentation Index
 
-Welcome to the KAVACH Drone Simulator! This is a complete, production-ready drone flight simulator built with React, Three.js, and Flask.
+Welcome to the A.E.G.I.S Drone Simulator! This is a complete, production-ready drone flight simulator built with React, Three.js, and Flask.
 
 ## 📖 Documentation Files
 
@@ -309,4 +309,4 @@ Everything is set up and ready to go. Choose your starting point:
 
 ---
 
-**Happy Flying with KAVACH Drone Simulator! 🚁**
+**Happy Flying with A.E.G.I.S Drone Simulator! 🚁**

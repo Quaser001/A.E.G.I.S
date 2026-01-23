@@ -12,7 +12,7 @@ export const useDroneStore = create((set, get) => ({
   mode: 'STABILIZE',
   speed: 0,
 
-  // KAVACH Doctrine state
+  // A.E.G.I.S Doctrine state
   gpsJam: 0,
   navConfidence: 100,
   retrogradeActive: false,
@@ -43,7 +43,7 @@ export const useDroneStore = create((set, get) => ({
 
   // Camera
   camera: {
-    mode: 'follow', // fpv, follow, orbit, topdown, free
+    mode: 'follow', // fpv, follow, orbit
     fov: 75,
     distance: 10
   },

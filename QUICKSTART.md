@@ -1,4 +1,4 @@
-# KAVACH Drone Simulator - Quick Start Guide
+# A.E.G.I.S Drone Simulator - Quick Start Guide
 
 ## 🚀 Get Started in 5 Minutes
 
@@ -34,7 +34,7 @@ python app.py
 
 You should see:
 ```
-Starting KAVACH Drone Simulator Backend...
+Starting A.E.G.I.S Drone Simulator Backend...
 Flask server running on http://localhost:5000
 ```
 
@@ -193,4 +193,4 @@ If you encounter bugs or have suggestions:
 
 **Happy Flying! 🚁**
 
-*KAVACH Drone Simulator - Making drone flight accessible to everyone*
+*A.E.G.I.S Drone Simulator - Making drone flight accessible to everyone*

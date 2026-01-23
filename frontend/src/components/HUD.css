@@ -1,4 +1,4 @@
-/* HUD Styling - KAVACH Drone Simulator */
+/* HUD Styling - A.E.G.I.S Drone Simulator */
 
 .hud-overlay {
   position: absolute;
@@ -24,6 +24,96 @@
   box-shadow: 0 0 20px rgba(0, 255, 136, 0.3), inset 0 0 10px rgba(0, 255, 136, 0.1);
   pointer-events: auto;
   backdrop-filter: blur(5px);
+  transition: border-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+/* ========== STATUS-BASED DYNAMIC STYLING ========== */
+.status-warning .hud-panel {
+  border-color: #ffaa00;
+  box-shadow: 0 0 20px rgba(255, 170, 0, 0.3), inset 0 0 10px rgba(255, 170, 0, 0.1);
+}
+
+.status-critical .hud-panel {
+  border-color: #ff4444;
+  box-shadow: 0 0 25px rgba(255, 68, 68, 0.4), inset 0 0 10px rgba(255, 68, 68, 0.1);
+}
+
+.status-override .hud-panel {
+  border-color: #cc00ff;
+  box-shadow: 0 0 25px rgba(204, 0, 255, 0.4), inset 0 0 10px rgba(204, 0, 255, 0.1);
+}
+
+/* ========== MISSION TIMER ========== */
+.mission-timer {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(120px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: rgba(10, 14, 39, 0.85);
+  border: 1px solid #00ccff;
+  border-radius: 3px;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+.timer-label {
+  color: #00ccff;
+  font-size: 9px;
+}
+
+.timer-value {
+  color: #ffffff;
+  font-weight: bold;
+  font-family: 'Courier New', monospace;
+  min-width: 40px;
+}
+
+/* ========== THREAT EDGE INDICATOR ========== */
+.threat-edge-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 5;
+  opacity: 0;
+  animation: edge-fade-in 0.3s ease forwards;
+}
+
+@keyframes edge-fade-in {
+  to {
+    opacity: 1;
+  }
+}
+
+.threat-edge-indicator.status-warning {
+  box-shadow: inset 0 0 60px rgba(255, 170, 0, 0.15);
+}
+
+.threat-edge-indicator.status-critical {
+  box-shadow: inset 0 0 80px rgba(255, 50, 50, 0.2);
+  animation: edge-fade-in 0.3s ease forwards, critical-pulse 2s ease-in-out infinite;
+}
+
+.threat-edge-indicator.status-override {
+  box-shadow: inset 0 0 80px rgba(180, 0, 255, 0.2);
+}
+
+@keyframes critical-pulse {
+
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 .panel-title {
@@ -247,7 +337,7 @@
   }
 }
 
-/* KAVACH Doctrine Section */
+/* A.E.G.I.S Doctrine Section */
 .doctrine-section {
   margin-top: 8px;
   padding-top: 8px;

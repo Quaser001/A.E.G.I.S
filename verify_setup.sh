@@ -1,8 +1,8 @@
 #!/bin/bash
-# KAVACH Drone Simulator - Setup Verification Script
+# A.E.G.I.S Drone Simulator - Setup Verification Script
 
 echo "╔════════════════════════════════════════════════════════════╗"
-echo "║     KAVACH Drone Simulator - Setup Verification           ║"
+echo "║     A.E.G.I.S Drone Simulator - Setup Verification           ║"
 echo "╚════════════════════════════════════════════════════════════╝"
 echo ""
 
@@ -113,7 +113,7 @@ if [ $FAILED -eq 0 ]; then
     echo "5. Start frontend: npm run dev"
     echo "6. Open http://localhost:3000"
     echo ""
-    echo "🚀 Happy flying with KAVACH Drone Simulator!"
+    echo "🚀 Happy flying with A.E.G.I.S Drone Simulator!"
 else
     echo -e "${YELLOW}⚠️  Some files are missing. Check the output above.${NC}"
     echo ""

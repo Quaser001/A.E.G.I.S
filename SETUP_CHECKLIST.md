@@ -1,4 +1,4 @@
-# 🚁 KAVACH Drone Simulator - Setup Checklist
+# 🚁 A.E.G.I.S Drone Simulator - Setup Checklist
 
 ## ✅ Project Creation Complete!
 
@@ -278,7 +278,7 @@ ________________________________________________
 
 ---
 
-**🎉 Welcome to KAVACH Drone Simulator!**
+**🎉 Welcome to A.E.G.I.S Drone Simulator!**
 
 You now have a fully functional drone flight simulator.
 

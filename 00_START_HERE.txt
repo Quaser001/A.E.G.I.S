@@ -1,6 +1,6 @@
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                                                                              ║
-║              ✨ KAVACH DRONE SIMULATOR - PROJECT COMPLETE ✨                ║
+║              ✨ A.E.G.I.S DRONE SIMULATOR - PROJECT COMPLETE ✨                ║
 ║                                                                              ║
 ║         Full-Stack Flight Simulator with React, Three.js & Flask            ║
 ║                                                                              ║
@@ -511,7 +511,7 @@ Documentation:
 
 🎉 YOU'RE READY!
 
-Your KAVACH Drone Simulator is complete and ready to use.
+Your A.E.G.I.S Drone Simulator is complete and ready to use.
 
 Everything you need is included:
   ✅ Full source code
@@ -527,13 +527,13 @@ Start flying in 3 steps:
 
 ═══════════════════════════════════════════════════════════════════════════════
 
-                    🚁 HAPPY FLYING WITH KAVACH! 🚁
+                    🚁 HAPPY FLYING WITH A.E.G.I.S! 🚁
 
 ═══════════════════════════════════════════════════════════════════════════════
 
 Version: 1.0.0
 Created: 2026
-Project: KAVACH Drone Simulator
+Project: A.E.G.I.S Drone Simulator
 Location: C:\Users\asef6\OneDrive\Desktop\2026\Amity\Drone
 
 ═══════════════════════════════════════════════════════════════════════════════

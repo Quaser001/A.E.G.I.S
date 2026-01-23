@@ -1,9 +1,9 @@
 @echo off
-REM KAVACH Drone Simulator - Setup Verification (Windows)
+REM A.E.G.I.S Drone Simulator - Setup Verification (Windows)
 
 echo.
 echo ╔════════════════════════════════════════════════════════════╗
-echo ║     KAVACH Drone Simulator - Setup Verification           ║
+echo ║     A.E.G.I.S Drone Simulator - Setup Verification           ║
 echo ╚════════════════════════════════════════════════════════════╝
 echo.
 
@@ -183,7 +183,7 @@ if %FAILED% equ 0 (
     echo 5. Start frontend: npm run dev
     echo 6. Open http://localhost:3000
     echo.
-    echo 🚀 Happy flying with KAVACH Drone Simulator!
+    echo 🚀 Happy flying with A.E.G.I.S Drone Simulator!
 ) else (
     echo [WARNING] Some files are missing. Check the output above.
     echo.

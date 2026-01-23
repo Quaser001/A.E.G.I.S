@@ -46,7 +46,7 @@ export const useKeyboardControls = (socket) => {
       }
       // Cycle camera mode with 'C'
       if (key === 'c') {
-        const modes = ['fpv', 'follow', 'orbit', 'topdown', 'free'];
+        const modes = ['fpv', 'follow', 'orbit'];
         const currentMode = useDroneStore.getState().camera.mode;
         const nextMode = modes[(modes.indexOf(currentMode) + 1) % modes.length];
         useDroneStore.setState((state) => ({

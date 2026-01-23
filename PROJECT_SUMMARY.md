@@ -1,4 +1,4 @@
-# KAVACH Drone Simulator - Complete Project Summary
+# A.E.G.I.S Drone Simulator - Complete Project Summary
 
 ## 🎉 Project Successfully Created!
 
@@ -271,6 +271,6 @@ For issues or questions:
 
 ## 🎉 You're All Set!
 
-Your KAVACH Drone Simulator is complete and ready to use. Follow the Quick Start guide to get flying in minutes!
+Your A.E.G.I.S Drone Simulator is complete and ready to use. Follow the Quick Start guide to get flying in minutes!
 
 **Happy Flying! 🚁**

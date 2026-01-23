@@ -1,6 +1,6 @@
 ╔════════════════════════════════════════════════════════════╗
 ║                                                            ║
-║   ✅ KAVACH DRONE SIMULATOR - PROJECT COMPLETE            ║
+║   ✅ A.E.G.I.S DRONE SIMULATOR - PROJECT COMPLETE            ║
 ║                                                            ║
 ║        Full-Stack Flight Simulator Ready to Use           ║
 ║                                                            ║
@@ -293,7 +293,7 @@ This is NOT just a simulator - it's a complete learning tool:
 
 🚁 READY TO FLY!
 
-Your KAVACH Drone Simulator is fully configured and ready.
+Your A.E.G.I.S Drone Simulator is fully configured and ready.
 
 Open a terminal and run:
   cd backend && python app.py

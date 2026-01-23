@@ -1,6 +1,6 @@
 """
-KAVACH Drone Simulator Backend
-Flask server with real-time physics simulation, KAVACH doctrine, and WebSocket support
+A.E.G.I.S Drone Simulator Backend
+Flask server with real-time physics simulation, A.E.G.I.S doctrine, and WebSocket support
 """
 
 from flask import Flask, jsonify
@@ -40,7 +40,7 @@ def to_native(obj):
         return [to_native(item) for item in obj]
     return obj
 
-# ==================== KAVACH DOCTRINE CONSTANTS ====================
+# ==================== A.E.G.I.S DOCTRINE CONSTANTS ====================
 THRESH_WARN = 70.0          # Warning threshold for confidence
 THRESH_REJECT = 40.0        # Reject threshold (can't drop anchors below this)
 THRESH_ABORT = 10.0         # Abort threshold - triggers automatic retrograde
@@ -51,7 +51,7 @@ BATTERY_RTB_THRESHOLD = 15.0  # Battery % that triggers automatic RTB
 
 @dataclass
 class DroneState:
-    """Represents the complete state of a drone with KAVACH doctrine"""
+    """Represents the complete state of a drone with A.E.G.I.S doctrine"""
     # Position and motion
     position: Tuple[float, float, float] = (0.0, 2.0, 0.0)  # x, y, z
     velocity: Tuple[float, float, float] = (0.0, 0.0, 0.0)
@@ -63,7 +63,7 @@ class DroneState:
     armed: bool = False
     mode: str = "STABILIZE"
     
-    # KAVACH Doctrine state
+    # A.E.G.I.S Doctrine state
     gps_jam: float = 0.0                # 0-100, GPS jamming level (operator-simulated)
     nav_confidence: float = 100.0       # 0-100, auto-affected by GPS jam
     retrograde_active: bool = False     # Auto-return mode
@@ -72,7 +72,7 @@ class DroneState:
 
 @dataclass
 class DoctrineData:
-    """KAVACH doctrine data - breadcrumbs and anchors"""
+    """A.E.G.I.S doctrine data - breadcrumbs and anchors"""
     breadcrumbs: List[Tuple[float, float, float]] = field(default_factory=list)
     anchors: List[Tuple[float, float, float]] = field(default_factory=list)
     return_queue: List[Tuple[float, float, float]] = field(default_factory=list)
@@ -83,7 +83,7 @@ class DoctrineData:
 # ==================== PHYSICS ENGINE ====================
 
 class PhysicsEngine:
-    """KAVACH Drone physics simulation with doctrine support"""
+    """A.E.G.I.S Drone physics simulation with doctrine support"""
     
     # Physical constants
     GRAVITY = 9.81
@@ -110,7 +110,7 @@ class PhysicsEngine:
         self.yaw_rate = 0.0
         
     def update(self, dt: float):
-        """Update physics with KAVACH doctrine"""
+        """Update physics with A.E.G.I.S doctrine"""
         if not self.state.armed:
             return
         
@@ -156,10 +156,12 @@ class PhysicsEngine:
             self.state.battery = max(0, self.state.battery - 0.5 * dt)
         
         if self.state.battery <= 0:
+            if self.state.armed:
+                print("DEBUG: Auto-disarm due to LOW BATTERY")
             self.state.armed = False
     
     def _update_doctrine(self, dt: float):
-        """Update KAVACH doctrine - GPS jam directly affects nav confidence"""
+        """Update A.E.G.I.S doctrine - GPS jam directly affects nav confidence"""
         if self.state.retrograde_active:
             # Freeze confidence during retrograde
             return
@@ -324,10 +326,13 @@ class PhysicsEngine:
     
     def arm(self):
         """Arm the drone"""
-        if self.state.battery > 10:
-            self.state.armed = True
-            self.doctrine.breadcrumbs = []  # Clear breadcrumbs on arm
-            self.doctrine.last_breadcrumb_time = time.time()
+        # Force battery reset ensures we can always arm
+        if self.state.battery <= 10:
+             self.state.battery = 100.0
+        
+        self.state.armed = True
+        self.doctrine.breadcrumbs = []  # Clear breadcrumbs on arm
+        self.doctrine.last_breadcrumb_time = time.time()
     
     def disarm(self):
         """Disarm the drone"""
@@ -602,9 +607,9 @@ def server_error(error):
 
 
 if __name__ == '__main__':
-    print("Starting KAVACH Drone Simulator Backend...")
+    print("Starting A.E.G.I.S Drone Simulator Backend...")
     print("Flask server running on http://localhost:5000")
-    print("KAVACH Doctrine Thresholds:")
+    print("A.E.G.I.S Doctrine Thresholds:")
     print(f"  WARN: {THRESH_WARN}%")
     print(f"  REJECT: {THRESH_REJECT}%")
     print(f"  ABORT: {THRESH_ABORT}%")

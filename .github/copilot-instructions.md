@@ -1,6 +1,6 @@
 .github/copilot-instructions.md
 
-# KAVACH Drone Simulator - Project Instructions
+# A.E.G.I.S Drone Simulator - Project Instructions
 
 ## Project Overview
 Full-stack drone flight simulator with React + Three.js frontend, Flask backend, physics simulation, real-time visualization, and beautiful HUD.
@@ -174,4 +174,4 @@ Drone/
 - Modular component architecture
 - Easy to extend and customize
 
-Enjoy the KAVACH Drone Simulator! 🚁
+Enjoy the A.E.G.I.S Drone Simulator! 🚁

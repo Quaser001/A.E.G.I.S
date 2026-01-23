@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDroneStore } from '../store/droneStore';
 import './HUD.css';
 
@@ -31,7 +31,7 @@ export const HUD = ({ socket }) => {
   const mode = useDroneStore((state) => state.mode);
   const connectionStatus = useDroneStore((state) => state.connectionStatus);
 
-  // KAVACH Doctrine
+  // A.E.G.I.S Doctrine
   const gpsJam = useDroneStore((state) => state.gpsJam);
   const navConfidence = useDroneStore((state) => state.navConfidence);
   const status = useDroneStore((state) => state.status);
@@ -42,6 +42,8 @@ export const HUD = ({ socket }) => {
 
   const minimapRef = useRef(null);
   const lastStatusRef = useRef('NOMINAL');
+  const [missionTime, setMissionTime] = useState(0);
+  const missionStartRef = useRef(null);
 
   // Draw minimap
   useEffect(() => {
@@ -176,8 +178,54 @@ export const HUD = ({ socket }) => {
     return '#00ff88';
   };
 
+  // Mission timer
+  useEffect(() => {
+    if (armed && !missionStartRef.current) {
+      missionStartRef.current = Date.now();
+    } else if (!armed) {
+      missionStartRef.current = null;
+      setMissionTime(0);
+    }
+
+    const interval = setInterval(() => {
+      if (missionStartRef.current) {
+        setMissionTime(Math.floor((Date.now() - missionStartRef.current) / 1000));
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [armed]);
+
+  // Format mission time as MM:SS
+  const formatTime = (seconds) => {
+    const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const s = (seconds % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  };
+
+  // Get status class for dynamic border styling
+  const getStatusClass = () => {
+    if (status === 'COMMANDER_RTB') return 'status-override';
+    if (status === 'SAFETY_OVERRIDE' || retrogradeActive) return 'status-critical';
+    if (status === 'WARNING' || navConfidence < thresholds.warn) return 'status-warning';
+    return 'status-nominal';
+  };
+
   return (
-    <div className="hud-overlay">
+    <div className={`hud-overlay ${getStatusClass()}`}>
+      {/* Threat Edge Indicator - subtle screen border glow */}
+      {(status === 'WARNING' || status === 'SAFETY_OVERRIDE' || status === 'COMMANDER_RTB') && (
+        <div className={`threat-edge-indicator ${getStatusClass()}`} />
+      )}
+
+      {/* Mission Timer */}
+      {armed && (
+        <div className="mission-timer">
+          <span className="timer-label">MISSION</span>
+          <span className="timer-value">{formatTime(missionTime)}</span>
+        </div>
+      )}
+
       {/* Top Center - Connection */}
       <div className="hud-top-center">
         <div className={`connection-badge ${connectionStatus}`}>
@@ -343,56 +391,7 @@ export const HUD = ({ socket }) => {
       </div>
 
       {/* Center - Military HUD Pitch Ladder */}
-      <div className="military-hud">
-        {/* Rotating Reference Frame (Horizon, Pitch, Bank Scale) */}
-        <div className="hud-center-ring" style={{ transform: `rotate(${-rotation[2] * 180 / Math.PI}deg)` }}>
-
-          {/* Ghost Horizon Line (Extends to edges) */}
-          <div className="ghost-horizon">
-            <div className="ghost-line left"></div>
-            <div className="ghost-line right"></div>
-          </div>
-
-          {/* Pitch Ladder */}
-          <div
-            className="pitch-ladder"
-            style={{ transform: `translateY(${rotation[0] * 280}px)` }} // Increased sensitivity
-          >
-            {[40, 30, 20, 10, 0, -10, -20, -30, -40].map(deg => (
-              <div key={deg} className={`pitch-line ${deg === 0 ? 'horizon' : ''}`}>
-                <span className="pitch-val start">{Math.abs(deg)}</span>
-                <div className="pitch-bar">
-                  {deg !== 0 && <div className="pitch-rung-mark"></div>}
-                </div>
-                <span className="pitch-val end">{Math.abs(deg)}</span>
-              </div>
-            ))}
-          </div>
-
-          {/* Bank Indicator Scale (Rotates with aircraft) */}
-          <div className="bank-arc">
-            {/* Ticks for 10, 20, 30, 45 degrees */}
-            {[-45, -30, -20, -10, 10, 20, 30, 45].map(angle => (
-              <div
-                key={angle}
-                className="bank-tick"
-                style={{ transform: `rotate(${angle}deg)` }}
-              ></div>
-            ))}
-          </div>
-        </div>
-
-        {/* Fixed Elements (Do not rotate) */}
-        <div className="bank-triangle-fixed"></div>
-
-        <div className="hud-crosshair">
-          <svg width="40" height="40" viewBox="0 0 40 40">
-            <circle cx="20" cy="20" r="2" fill="#00ff88" />
-            <path d="M10,20 L30,20 M20,10 L20,30" stroke="#00ff88" strokeWidth="1.5" fill="none" />
-            <circle cx="20" cy="20" r="8" stroke="#ff3333" strokeWidth="1.5" strokeDasharray="3 3" fill="none" opacity="0.7" />
-          </svg>
-        </div>
-      </div>
+      {/* Central HUD elements removed for cleaner view */}
     </div>
   );
 };

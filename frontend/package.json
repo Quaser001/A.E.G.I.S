@@ -1,7 +1,7 @@
 {
   "name": "kavach-drone-simulator",
   "version": "1.0.0",
-  "description": "KAVACH Drone Simulator - React + Three.js Web Application",
+  "description": "A.E.G.I.S Drone Simulator - React + Three.js Web Application",
   "type": "module",
   "main": "vite.config.js",
   "scripts": {

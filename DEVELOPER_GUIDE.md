@@ -1,8 +1,8 @@
-# KAVACH Drone Simulator - Developer Guide
+# A.E.G.I.S Drone Simulator - Developer Guide
 
 ## 🎯 Project Overview
 
-KAVACH is a full-stack drone flight simulator built with:
+A.E.G.I.S is a full-stack drone flight simulator built with:
 - **Frontend**: React 18 + Three.js (3D visualization)
 - **Backend**: Flask + Python (Physics simulation)
 - **Communication**: WebSocket (Real-time sync)

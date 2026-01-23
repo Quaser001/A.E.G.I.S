@@ -49,7 +49,7 @@ export const DroneScene = React.forwardRef(({ socket }, ref) => {
     // Scene setup with gradient background
     const scene = new THREE.Scene();
     scene.background = new THREE.Color(0x0a0a1a);
-    scene.fog = new THREE.FogExp2(0x0a0a1a, 0.008);
+    scene.fog = new THREE.FogExp2(0x0a0a1a, 0.002); // Reduced fog to reveal stars
     sceneRef.current = scene;
 
     // Camera
@@ -145,15 +145,7 @@ export const DroneScene = React.forwardRef(({ socket }, ref) => {
     landingPad.receiveShadow = true;
     scene.add(landingPad);
 
-    const ringGeometry = new THREE.RingGeometry(2.5, 2.8, 32);
-    const ringMaterial = new THREE.MeshBasicMaterial({
-      color: 0x00ffaa,
-      side: THREE.DoubleSide
-    });
-    const ring = new THREE.Mesh(ringGeometry, ringMaterial);
-    ring.rotation.x = -Math.PI / 2;
-    ring.position.y = 0.12;
-    scene.add(ring);
+    // Removed ring geometry as requested
 
     // ===== DRONE MODEL =====
     const droneGroup = new THREE.Group();
@@ -176,8 +168,10 @@ export const DroneScene = React.forwardRef(({ socket }, ref) => {
       color: 0xff6600,
       metalness: 0.7,
       roughness: 0.3,
-      emissive: 0xff3300,
-      emissiveIntensity: 0.1
+      color: 0xff6600,
+      metalness: 0.7,
+      roughness: 0.3
+      // Removed emissive glow as requested
     });
     const top = new THREE.Mesh(topGeometry, topMaterial);
     top.position.y = 0.06;
@@ -331,9 +325,9 @@ export const DroneScene = React.forwardRef(({ socket }, ref) => {
 
           case 'follow':
             const behind = new THREE.Vector3(
-              -Math.sin(rotation[1]) * cameraDistance * 0.3,
-              cameraDistance * 0.8,
-              -Math.cos(rotation[1]) * cameraDistance * 0.3
+              -Math.sin(rotation[1]) * cameraDistance * 0.5,
+              cameraDistance * 0.3, // Lower height for better chase view
+              -Math.cos(rotation[1]) * cameraDistance * 0.5
             );
             cameraRef.current.position.lerp(
               dronePos.clone().add(behind),
