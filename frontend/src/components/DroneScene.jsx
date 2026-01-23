@@ -32,12 +32,10 @@ export const DroneScene = React.forwardRef(({ socket }, ref) => {
       cameraModeRef.current = state.camera.mode;
       cameraDistanceRef.current = state.camera.distance;
 
-      // Update drone model directly (Direct Updates)
-      if (droneModelRef.current) {
-        droneModelRef.current.position.set(...state.position);
-        droneModelRef.current.rotation.order = 'YXZ';
-        droneModelRef.current.rotation.set(state.rotation[0], state.rotation[1], state.rotation[2]);
-      }
+      positionRef.current = state.position;
+      rotationRef.current = state.rotation;
+      cameraModeRef.current = state.camera.mode;
+      cameraDistanceRef.current = state.camera.distance;
     });
     return () => unsubscribe();
   }, []);
@@ -281,8 +279,48 @@ export const DroneScene = React.forwardRef(({ socket }, ref) => {
     const animate = () => {
       animationIdRef.current = requestAnimationFrame(animate);
 
-      const position = positionRef.current;
-      const rotation = rotationRef.current;
+      if (droneModelRef.current) {
+        // SMOOTH INTERPOLATION
+        const targetPos = new THREE.Vector3(...positionRef.current);
+        const currentPos = droneModelRef.current.position;
+
+        // Lerp position (factor 0.1 provides smooth catch-up without too much lag)
+        // Check for teleportation (if distance is too large, snap instantly)
+        if (currentPos.distanceTo(targetPos) > 10) {
+          currentPos.copy(targetPos);
+        } else {
+          currentPos.lerp(targetPos, 0.15); // Increased alpha for responsiveness at high speed
+        }
+
+        // Smooth Rotation
+        const targetRot = new THREE.Euler(
+          rotationRef.current[0],
+          rotationRef.current[1],
+          rotationRef.current[2],
+          'YXZ'
+        );
+        const currentQuaternion = droneModelRef.current.quaternion;
+        const targetQuaternion = new THREE.Quaternion().setFromEuler(targetRot);
+
+        currentQuaternion.slerp(targetQuaternion, 0.15);
+      }
+
+      let position = positionRef.current;
+      let rotation = rotationRef.current;
+
+      // Use smoothed values if available
+      if (droneModelRef.current) {
+        position = [
+          droneModelRef.current.position.x,
+          droneModelRef.current.position.y,
+          droneModelRef.current.position.z
+        ];
+        rotation = [
+          droneModelRef.current.rotation.x,
+          droneModelRef.current.rotation.y,
+          droneModelRef.current.rotation.z
+        ];
+      }
       const cameraMode = cameraModeRef.current;
       const cameraDistance = cameraDistanceRef.current;
 
